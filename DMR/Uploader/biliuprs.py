@@ -185,7 +185,12 @@ class biliuprs():
             config['dynamic'] = replace_keywords(config['dynamic'], video_info, replace_invalid=replace_invalid)
         if config.get('tag'):
             if isinstance(config['tag'], list):
-                config['tag'] = ','.join(config['tag'])
+                tag = []
+                for data in config['tag']:
+                    if isinstance(data, dict):
+                        data = f"{{{''.join(data)}}}"
+                    tag.append(data)
+                config['tag'] = ','.join(tag)
             config['tag'] = replace_keywords(config['tag'], video_info, replace_invalid=replace_invalid)
         if config.get('source'):
             config['source'] = replace_keywords(config['source'], video_info, replace_invalid=replace_invalid)
